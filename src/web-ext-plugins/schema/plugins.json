@@ -1,0 +1,29 @@
+{
+    "id": "plugins",
+    "type": "object",
+    "additionalProperties": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "string",
+                "format": "email"
+            },
+            "description": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "provides": {
+                "type": "array"
+            },
+            "icon": {
+                "type": "string"
+            },
+            "longDescription": {
+                "type": "string"
+            }
+        },
+        "required": ["id", "name"]
+    }
+}

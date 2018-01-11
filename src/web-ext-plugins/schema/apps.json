@@ -1,0 +1,27 @@
+{
+    "id": "apps",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "updated": {
+                "type": "integer"
+            },
+            "type": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string",
+                "format": "uri"
+            },
+            "plugin": {
+                "type": "string",
+                "format": "email"
+            }
+        },
+        "required": ["name", "updated", "type", "url", "plugin"]
+    }
+}

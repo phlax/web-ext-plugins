@@ -1,0 +1,26 @@
+{
+    "id": "tools",
+    "type": "object",
+    "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "defaultEnabled": {
+                    "type": "boolean"
+                },
+                "plugin": {
+                    "type": "string",
+                    "format": "email"
+                }
+            },
+            "required": ["name", "category", "plugin"]
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "id": "notifications",
+    "type": "object",
+    "additionalProperties": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "category": {
+                "type": "string"
+            },
+            "plugin": {
+                "type": "string",
+                "format": "email"
+            }
+        },
+        "required": ["name", "category"]
+    }
+}

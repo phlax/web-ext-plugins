@@ -1,0 +1,23 @@
+{
+    "id": "services",
+    "type": "object",
+    "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "defaultEnabled": {
+                    "type": "boolean"
+                },
+                "plugin": {
+                    "type": "string",
+                    "format": "email"
+                }
+            },
+            "required": ["name"]
+        }
+    }
+}

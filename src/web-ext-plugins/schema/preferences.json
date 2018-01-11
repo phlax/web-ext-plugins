@@ -1,0 +1,26 @@
+{
+    "id": "preferences",
+    "type": "object",
+    "additionalProperties": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "category": {
+                "type": "string"
+            },
+            "type": {
+                "type": "string"
+            },
+            "defaultEnabled": {
+                "type": "boolean"
+            },
+            "plugin": {
+                "type": "string",
+                "format": "email"
+            }
+        },
+        "required": ["name", "category"]
+    }
+}
