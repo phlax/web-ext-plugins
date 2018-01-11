@@ -1,0 +1,23 @@
+
+#config .tab-panel {
+    background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,0,0,0));
+    padding: 1em 1em 1em 1em;
+    margin-top: 0;
+}
+
+#config .react-tabs__tab-list {
+    margin: 1em 0 0 0;
+}
+
+#config .tab-panel h3 {
+    border-bottom: solid #777 1px;
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  font-style: italic;
+  display: block; /* For Firefox */
+}

@@ -1,0 +1,35 @@
+
+
+const configMenuItems = [
+    {slug: 'preferences',
+     name: "preferences",
+     title: "configTitlePreferences",
+     component: require('web-ext-plugins/manager/config/preferences').default,
+     icon: '/images/preferences.svg'},
+    {slug: 'notifications',
+     name: "notifications",
+     component: require('web-ext-plugins/manager/config/notifications').default,
+     title: "configTitleNotifications",
+     icon: '/images/notifications.svg'},
+    {slug: 'apps',
+     name: "webApps",
+     component: require('web-ext-plugins/manager/config/apps').default,
+     title: "configTitleApps",
+     icon: '/images/category-extensions.svg'},
+    {slug: 'tools',
+     name: "tools",
+     component: require('web-ext-plugins/manager/config/tools').default,
+     title: "configTitleTools",
+     icon: '/images/check.svg'},
+    {slug: 'services',
+     name: "services",
+     title: "configTitleServices",
+     component: require('web-ext-plugins/manager/config/services').default,
+     icon: '/images/category-service.svg'},
+    {slug: 'plugins',
+     name: "plugins",
+     component: require('web-ext-plugins/manager/config/plugins').default,
+     title: "configTitlePlugins",
+     icon: '/images/category-plugins.svg'}]
+
+export default configMenuItems;
