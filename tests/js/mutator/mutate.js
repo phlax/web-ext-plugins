@@ -17,6 +17,134 @@ test('Mutator mutator', () => {
 })
 
 
+test('Mutator mutate string', () => {
+    let schema = {
+        "type": "string"}
+    let mutator = new Mutator(schema)
+    expect(mutator.mutate('foo')).toBe('foo')
+    expect(mutator.mutate(23)).toBe('23')
+    expect(mutator.mutate(true)).toBe('true')
+    expect(mutator.mutate(false)).toBe('false')
+    expect(mutator.mutate({})).toBe("[object Object]")
+    expect(mutator.mutate([])).toBe("")
+})
+
+
+test('Mutator mutate integer', () => {
+    let schema = {
+        "type": "integer"}
+    let mutator = new Mutator(schema)
+    expect(mutator.mutate('foo')).toBe(NaN)
+    expect(mutator.mutate(23)).toBe(23)
+    expect(mutator.mutate(true)).toBe(NaN)
+    expect(mutator.mutate(false)).toBe(NaN)
+    expect(mutator.mutate({})).toBe(NaN)
+    expect(mutator.mutate([])).toBe(NaN)
+})
+
+
+test('Mutator mutate number', () => {
+    let schema = {
+        "type": "number"}
+    let mutator = new Mutator(schema)
+    expect(mutator.mutate('foo')).toBe(NaN)
+    expect(mutator.mutate(23)).toBe(23)
+    expect(mutator.mutate(true)).toBe(NaN)
+    expect(mutator.mutate(false)).toBe(NaN)
+    expect(mutator.mutate({})).toBe(NaN)
+    expect(mutator.mutate([])).toBe(NaN)
+})
+
+
+test('Mutator mutate boolean', () => {
+    let schema = {
+        "type": "boolean"}
+    let mutator = new Mutator(schema)
+    expect(mutator.mutate('foo')).toBe(true)
+    expect(mutator.mutate(23)).toBe(true)
+    expect(mutator.mutate(true)).toBe(true)
+    expect(mutator.mutate(false)).toBe(false)
+    expect(mutator.mutate({})).toBe(true)
+    expect(mutator.mutate([])).toBe(true)
+})
+
+
+test('Mutator mutate multi', () => {
+    let schema = {
+        "type": ["string", "boolean"]}
+    let mutator = new Mutator(schema)
+    expect(mutator.mutate('foo')).toBe('foo')
+    expect(mutator.mutate(23)).toBe(undefined)
+    expect(mutator.mutate(true)).toBe(true)
+    expect(mutator.mutate(false)).toBe(false)
+    expect(mutator.mutate({})).toBe(undefined)
+    expect(mutator.mutate([])).toBe(undefined)
+})
+
+
+test('Mutator mutate multi 2', () => {
+    let schema = {
+        "type": ["string", "integer"]}
+    let mutator = new Mutator(schema)
+    expect(mutator.mutate('foo')).toBe('foo')
+    expect(mutator.mutate(23)).toBe(23)
+    expect(mutator.mutate(true)).toBe(undefined)
+    expect(mutator.mutate(false)).toBe(undefined)
+    expect(mutator.mutate({})).toBe(undefined)
+    expect(mutator.mutate([])).toBe(undefined)
+})
+
+
+test('Mutator mutate multi 3', () => {
+    let schema = {
+        "type": ["number", "boolean"]}
+    let mutator = new Mutator(schema)
+    expect(mutator.mutate('foo')).toBe(undefined)
+    expect(mutator.mutate(23)).toBe(23)
+    expect(mutator.mutate(true)).toBe(true)
+    expect(mutator.mutate(false)).toBe(false)
+    expect(mutator.mutate({})).toBe(undefined)
+    expect(mutator.mutate([])).toBe(undefined)
+})
+
+
+test('Mutator mutate multi 4', () => {
+    let schema = {
+        "type": ["string", "object"]}
+    let mutator = new Mutator(schema)
+    expect(mutator.mutate('foo')).toBe('foo')
+    expect(mutator.mutate(23)).toBe(undefined)
+    expect(mutator.mutate(true)).toBe(undefined)
+    expect(mutator.mutate(false)).toBe(undefined)
+    expect(mutator.mutate({})).toEqual({})
+    expect(mutator.mutate([])).toEqual({})
+})
+
+
+test('Mutator mutate multi 5', () => {
+    let schema = {
+        type: ["string", "object", "array"],
+        properties: {
+            bar: {
+                type: 'integer'
+            }
+        },
+        additionalProperties: {
+            type: "integer"
+        }
+    }
+    let mutator = new Mutator(schema)
+    mutator.mutateProperties = jest.fn(() => {return {bar: 113, baz: 117}})
+    mutator.mutateAdditionalProperties = jest.fn(() => {return {foo: 7, bar: 23}})
+    expect(mutator.mutate('foo')).toBe('foo')
+    expect(mutator.mutate(23)).toBe(undefined)
+    expect(mutator.mutate(true)).toBe(undefined)
+    expect(mutator.mutate(false)).toBe(undefined)
+    expect(mutator.mutate({})).toEqual({"bar": 23, "baz": 117, "foo": 7})
+    expect(mutator.mutate([])).toEqual([])
+})
+
+
 test('Mutator properties', () => {
     const mutator = new Mutator('foo')
     expect(mutator.properties).toBe(undefined)
