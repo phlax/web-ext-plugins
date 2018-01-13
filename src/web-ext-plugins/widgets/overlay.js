@@ -3,6 +3,7 @@ import React from 'react';
 
 import Modal from 'web-ext-plugins/widgets/modal';
 import Button from './button';
+import _ from 'web-ext-plugins/localized'
 
 
 export class OverlayLink  extends React.Component {
@@ -25,7 +26,7 @@ export class OverlayLink  extends React.Component {
             <a
                href='#'
                onClick={this.overlayContent.bind(this)}>
-                {this.props.text}
+                <_ text={this.props.text} l10n={this.props.l10n}  />
             </a>);
     }
 
