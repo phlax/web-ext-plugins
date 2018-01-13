@@ -3,53 +3,68 @@
 export default class Mutator {
 
     constructor(schema) {
-        this.schema = schema;
+        this.schema = schema || {};
     }
 
-    get mutator() {
-        if (this.hasAdditionalProperties()) {
-            return new this.constructor(this.schema.additionalProperties)
-        }
-        return new this.constructor(this.schema.items)
+    getMutator(schema) {
+        return new this.constructor(schema)
+    }
+
+    get additionalProperties () {
+        const {additionalProperties} = this.schema
+        return additionalProperties
+    }
+
+    get properties () {
+        const {properties} = this.schema
+        return properties
+    }
+
+    get type () {
+        const {type} = this.schema
+        return type
     }
 
     mutate(obj) {
-        if (this.schema && this.schema.type === "array") {
-            return this.getItems(obj)
-        } else {
-            let result = {}
-            Object.assign(result, this.getProperties(obj))
-            Object.assign(result, this.getAdditionalProperties(obj))
+        const result = {}
+        switch (this.type) {
+        case "array":
+            return this.mutateItems(obj)
+        case "object":
+            Object.assign(result, this.mutateProperties(obj))
+            Object.assign(result, this.mutateAdditionalProperties(obj))
             return result
+        case "string":
+            return obj;
+        case "integer":
+            return obj;
         }
     }
 
-    getItems (obj) {
+    mutateItems (obj) {
         const items = []
         for (let item of obj) {
-            items.push(this.mutator.mutate(item))
+            items.push(this.getMutator(this.schema.items).mutate(item))
         }
         return items
     }
 
-    getProperties (obj) {
+    mutateProperties (obj) {
         const result = {}
-        if (this.hasProperties()) {
-            for (let name of Object.keys(obj)) {
-                if (this.hasProperty(name)) {
-                    result[name] = obj[name]
-                }
+        for (let [name, property] of Object.entries(this.properties || {})) {
+            if (Object.keys(obj).indexOf(name) !== -1) {
+                result[name] = this.getMutator(property).mutate(obj[name])
             }
         }
         return result
     }
 
-    getAdditionalProperties (obj) {
+    mutateAdditionalProperties (obj) {
         const result = {}
         if (this.hasAdditionalProperties()) {
             for (let name in obj) {
                 if (!this.hasProperty(name)) {
-                    result[name] = this.mutator.mutate(obj[name])
+                    result[name] = this.getMutator(this.additionalProperties).mutate(obj[name])
                 }
             }
         }
@@ -57,14 +72,10 @@ export default class Mutator {
     }
 
     hasAdditionalProperties () {
-        return Boolean(this.schema && this.schema.type && this.schema.type === "object" && Object.keys(this.schema).indexOf("additionalProperties") !== -1)
-    }
-
-    hasProperties () {
-        return Boolean(this.schema && Object.keys(this.schema).indexOf("properties") !== -1)
+        return Boolean(this.type === "object" && this.additionalProperties)
     }
 
     hasProperty (name) {
-        return Boolean(this.hasProperties() && Object.keys(this.schema.properties).indexOf(name) !== -1)
+        return Boolean(this.properties && Object.keys(this.properties).indexOf(name) !== -1)
     }
 }
