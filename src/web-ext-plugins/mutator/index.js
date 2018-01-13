@@ -27,7 +27,23 @@ export default class Mutator {
 
     mutate(obj) {
         const result = {}
-        switch (this.type) {
+        let type = this.type;
+        let objtype = typeof(obj)
+        if (this.type instanceof Array) {
+            let types = [...this.type]
+            if (objtype === 'object' && types.indexOf('array') !== -1 && Array.isArray(obj)) {
+                objtype = 'array'
+            }
+            // both numbers and integers are recognised, but only numbers are
+            // returned
+            if (types.indexOf('integer') !== -1 && types.indexOf('number') === -1) {
+                types.push('number')
+            }
+            if (types.indexOf(typeof(obj)) !== -1) {
+                type = objtype;
+            }
+        }
+        switch (type) {
         case "array":
             return this.mutateItems(obj)
         case "object":
@@ -35,9 +51,13 @@ export default class Mutator {
             Object.assign(result, this.mutateAdditionalProperties(obj))
             return result
         case "string":
-            return obj;
+            return obj.toString();
+        case "number":
+            return parseInt(obj);
         case "integer":
-            return obj;
+            return parseInt(obj);
+        case "boolean":
+            return Boolean(obj);
         }
     }
 
