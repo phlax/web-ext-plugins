@@ -15,7 +15,10 @@
                 "type": "string"
             },
             "provides": {
-                "type": "array"
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
             },
             "icon": {
                 "type": "string"
