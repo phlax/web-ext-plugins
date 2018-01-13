@@ -46,19 +46,19 @@ test('Plugin manager constructor', () => {
             pluginRegistered: {
                 category: "notificationsSystem",
                 name: "notifyPluginRegistered",
-                defaultEnabled: true},
+                default: true},
             pluginRemoved: {
                 category: "notificationsSystem",
                 name: "notifyPluginRemoved",
-                defaultEnabled: true},
+                default: true},
             appAdded: {
                 category: "notificationsSystem",
-                defaultEnabled: true,
+                default: true,
                 name: "notifyAppAdded",
             },
             appRemoved: {
                 category: "notificationsSystem",
-                defaultEnabled: true,
+                default: true,
                 name: "notifyAppRemoved",
             }}
         expect(manager.systemNotifications).toEqual(systemNotifications)
