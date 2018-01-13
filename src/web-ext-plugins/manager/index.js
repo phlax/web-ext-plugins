@@ -52,19 +52,19 @@ export default class PluginManager {
             pluginRegistered: {
                 category: 'notificationsSystem',
                 name: "notifyPluginRegistered",
-                defaultEnabled: true},
+                default: true},
             pluginRemoved: {
                 category: 'notificationsSystem',
                 name: "notifyPluginRemoved",
-                defaultEnabled: true},
+                default: true},
             appAdded: {
                 category: 'notificationsSystem',
                 name: "notifyAppAdded",
-                defaultEnabled: true},
+                default: true},
             appRemoved: {
                 category: 'notificationsSystem',
                 name: "notifyAppRemoved",
-                defaultEnabled: true},
+                default: true},
         }
     }
 
