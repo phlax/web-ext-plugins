@@ -23,12 +23,12 @@ test('PluginRegistry register', () => {
             let expected = {
                 "plugins": {
                     "7": {
-                        "description": 73,
-                        "icon": 43,
+                        "description": '73',
+                        "icon": '43',
                         "id": 7,
-                        "longDescription": 117,
-                        "name": 113,
-                        "provides": [23]}}}
+                        "longDescription": '117',
+                        "name": '113',
+                        "provides": ['23']}}}
             expect(browser.storage.local.set.mock.calls).toEqual([[expected]])
             expect(plugins.updateRegistries.mock.calls).toEqual([[_plugins]])
             browser.storage.local.get = jest.fn(() => Promise.resolve({plugins: expected.plugins}))
