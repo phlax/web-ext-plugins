@@ -13,8 +13,8 @@
             "type": {
                 "type": "string"
             },
-            "defaultEnabled": {
-                "type": "boolean"
+            "default": {
+                "type": ["string", "integer", "boolean"]
             },
             "plugin": {
                 "type": "string",
