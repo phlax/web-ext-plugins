@@ -17,7 +17,7 @@ test('PluginRegistry register', () => {
     let _plugins = {}
     return plugins.register(_plugins).then(() => {
         expect(browser.storage.local.get.mock.calls).toEqual([])
-        _plugins = {sender: {id: 7}, provides: 23, name: 113, icon: 43, description: 73, longDescription: 117}
+        _plugins = {sender: {id: 7}, provides: [23], name: 113, icon: 43, description: 73, longDescription: 117}
         plugins.updateRegistries = jest.fn(() => Promise.resolve())
         return plugins.register(_plugins).then(() => {
             let expected = {
@@ -28,11 +28,11 @@ test('PluginRegistry register', () => {
                         "id": 7,
                         "longDescription": 117,
                         "name": 113,
-                        "provides": 23}}}
+                        "provides": [23]}}}
             expect(browser.storage.local.set.mock.calls).toEqual([[expected]])
             expect(plugins.updateRegistries.mock.calls).toEqual([[_plugins]])
             browser.storage.local.get = jest.fn(() => Promise.resolve({plugins: expected.plugins}))
-            let newPlugins = {sender: {id: 17}, provides: 123, name: 1113, icon: 143, description: 173, longDescription: 1117}
+            let newPlugins = {sender: {id: 17}, provides: [123], name: 1113, icon: 143, description: 173, longDescription: 1117}
             plugins._cached_get = false
             return plugins.register(newPlugins).then(() => {
                 expected.plugins["17"] = {
@@ -43,7 +43,7 @@ test('PluginRegistry register', () => {
                     "id": 17,
                     "longDescription": 117,
                     "name": 1113,
-                    "provides": 123}
+                    "provides": [123]}
                 expect(browser.storage.local.set.mock.calls[1]).toEqual([{"plugins": expected.plugins}])
             })
         })
