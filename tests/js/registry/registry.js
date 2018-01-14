@@ -40,3 +40,33 @@ test('Registry remove', () => {
         })
     })
 })
+
+
+test('Registry update', () => {
+
+    class MockRegistry extends Registry {
+
+        get schema () {
+            return {id: 'REGID'}
+        }
+    }
+
+    const registry = new MockRegistry('foo')
+    browser.storage.local.get = jest.fn(() => Promise.resolve({}))
+    browser.storage.local.set = jest.fn(() => Promise.resolve(23))
+    browser.runtime.sendMessage = jest.fn(() => Promise.resolve())
+    return registry.update('x', 'y', 'z', 23).then(() => {
+        expect(browser.storage.local.get.mock.calls).toEqual([['REGID']])
+        expect(browser.storage.local.set.mock.calls).toEqual([])
+        browser.storage.local.get = jest.fn(() => Promise.resolve({REGID: {x: {name: 'x', plugin: 'y', category: 'z', value: 23}}}))
+        return registry.update('x', 'y', 'z', 23).then(() => {
+            expect(browser.storage.local.get.mock.calls).toEqual([['REGID']])
+            expect(browser.storage.local.set.mock.calls).toEqual([])
+            browser.storage.local.get = jest.fn(() => Promise.resolve({REGID: {x: {name: 'x', plugin: 'y', category: 'z', value: 22}}}))
+            return registry.update('x', 'y', 'z', 23).then(() => {
+                expect(browser.storage.local.get.mock.calls).toEqual([['REGID']])
+                expect(browser.storage.local.set.mock.calls).toEqual([[{"REGID": {"x": {"category": "z", "name": "x", "plugin": "y", "value": 23}}}]])
+            })
+        })
+    })
+})
