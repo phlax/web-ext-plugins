@@ -55,3 +55,18 @@ export class OverlayButton  extends React.Component {
     }
 
 }
+
+
+export class OverlayButtonWidget extends React.Component {
+
+    render() {
+        return (
+            <div>
+              <OverlayButton
+                 text={this.text}
+                 id={this.id}>
+                {this.renderContent()}
+              </OverlayButton>
+            </div>);
+    }
+}
