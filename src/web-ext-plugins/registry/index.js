@@ -18,6 +18,24 @@ export default class Registry extends SchemaValidator {
         });
     }
 
+    update(name, plugin, category, value) {
+        return this.get().then(registered => {
+            let update = false;
+            Object.entries(registered).map(([k, v]) => {
+                if (k === name && v.category === category && v.plugin === plugin) {
+                    if (registered[k].value !== value) {
+                        registered[k].value = value;
+                        update = true;
+                    }
+                }
+            })
+            if (update) {
+                return this.set(registered)
+            }
+            return Promise.resolve()
+        })
+    }
+
     register (obj) {
         return this.get().then(registered => {
             Object.assign(registered, this.mutate(obj))
