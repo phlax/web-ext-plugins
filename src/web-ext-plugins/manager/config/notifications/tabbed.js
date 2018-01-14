@@ -31,7 +31,7 @@ export default class TabbedNotifications extends Tabbed {
     renderContent (type, data, key) {
         return (
             <NotificationCategory
-               updateNotifications={this.props.updateNotifications}
+               updateNotification={this.props.updateNotification}
                manager={this.props.manager}
                key={key}
                notifications={data.notifications}

@@ -14,11 +14,12 @@ export default class NotificationList extends React.Component {
                 {Object.entries(this.props.notifications).map(([notification, data], key) => {
                     return (
                         <Notification
-                           updateNotifications={this.props.updateNotifications}
+                           updateNotification={this.props.updateNotification}
                            manager={this.props.manager}
                            key={key}
-                           notification={notification}
-                           data={data}
+                           name={notification}
+                           notification={data}
+                           category={this.props.category}
                            />);
                 })}
             </ul>

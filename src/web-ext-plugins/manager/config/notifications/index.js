@@ -8,13 +8,18 @@ export default class ConfigureNotifications extends React.Component {
     constructor(props) {
         super(props);
         this.state = {notifications: []}
+        this.updateNotification = this.updateNotification.bind(this)
+        this.updateComponent = this.updateComponent.bind(this)
+    }
+
+    updateComponent () {
+        return this.props.manager.notifications.get().then(result => {
+            this.setState({notifications: result});
+        });
     }
 
     componentDidMount() {
-        const $this = this;
-        this.props.manager.notifications.get().then(result => {
-            $this.setState({notifications: result});
-        });
+        this.updateComponent()
     }
 
     get notificationsByCategory () {
@@ -31,8 +36,12 @@ export default class ConfigureNotifications extends React.Component {
         return _notifications
     }
 
-    updateNotifications () {
-
+    updateNotification (evt) {
+        return this.props.manager.notifications.update(
+            evt.target.name,
+            evt.target.dataset.plugin,
+            evt.target.dataset.category,
+            evt.target.checked).then(this.updateComponent)
     }
 
     render() {
@@ -40,7 +49,7 @@ export default class ConfigureNotifications extends React.Component {
             <div>
               <TabbedNotifications
                  notifications={this.notificationsByCategory}
-                 updateNotifications={this.updateNotifications.bind(this)}
+                 updateNotification={this.updateNotification}
                  manager={this.props.manager} />
             </div>
         );
