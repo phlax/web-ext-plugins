@@ -21,12 +21,19 @@ export class OverlayLink  extends React.Component {
         this.renderOverlay(this.props.children);
     }
 
+    renderLink () {
+        if (this.props.localize !== false) {
+            return <_ text={this.props.text} l10n={this.props.l10n}  />
+        }
+        return this.props.text;
+    }
+
     render() {
         return (
             <a
                href='#'
                onClick={this.overlayContent.bind(this)}>
-                <_ text={this.props.text} l10n={this.props.l10n}  />
+                {this.renderLink()}
             </a>);
     }
 
