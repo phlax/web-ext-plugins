@@ -36,14 +36,14 @@
       "lcov"
     ],
     "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "**/web-ext-plugins/**/**/*.js?(x)",
-      "!**/*.eslintrc.js",
-      "!**/webpack.config.js",
-      "!**/coverage/**",
-      "!**/dist/**",
-      "!**/node_modules/**",
-      "!**/vendor/**"
+        "**/tests/js/(addon|config|manager|registry|sidebar|validation|mutator)/**/*.js?(x)",
+        "**/*.{js,jsx}",
+        "!**/*.eslintrc.js",
+        "!**/webpack.config.js",
+        "!**/coverage/**",
+        "!**/dist/**",
+        "!**/node_modules/**",
+        "!**/vendor/**"
     ]
   },
   "devDependencies": {
