@@ -6,7 +6,7 @@ import 'react-tabs/style/react-tabs.css';
 import _ from 'web-ext-plugins/localized'
 import Tabbed from 'web-ext-plugins/widgets/tabs'
 
-import PreferenceCategory from './category';
+import PreferenceTable from './table';
 
 
 // import PreferenceType from './type'
@@ -30,7 +30,7 @@ export default class TabbedPreferences extends Tabbed {
 
     renderContent (type, data, key) {
         return (
-            <PreferenceCategory
+            <PreferenceTable
                updatePrefs={this.props.updatePrefs}
                manager={this.props.manager}
                key={key}
