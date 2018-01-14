@@ -3,9 +3,9 @@ import React from 'react';
 
 import {shallow} from 'enzyme';
 
-import BooleanPreference from 'web-ext-plugins/manager/config/preferences/primitives/boolean';
-import StringPreference from 'web-ext-plugins/manager/config/preferences/primitives/string';
-import IntegerPreference from 'web-ext-plugins/manager/config/preferences/primitives/integer';
+import BooleanPreference from 'web-ext-plugins/manager/config/preferences/table/primitives/boolean';
+import StringPreference from 'web-ext-plugins/manager/config/preferences/table/primitives/string';
+import IntegerPreference from 'web-ext-plugins/manager/config/preferences/table/primitives/integer';
 
 
 test('StringPreference render', () => {
