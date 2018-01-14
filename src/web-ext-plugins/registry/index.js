@@ -14,8 +14,18 @@ export default class Registry extends SchemaValidator {
 
     get () {
         return browser.storage.local.get(this.schema.id).then(result => {
-            return result[this.schema.id] || {};
+            return result[this.schema.id] || this.defaultValue;
         });
+    }
+
+    get defaultValue () {
+        switch (this.schema.type) {
+        case 'array':
+            return []
+        case 'object':
+            return {}
+        }
+        return {}
     }
 
     update(name, _plugin, _category, _value) {
