@@ -7,9 +7,19 @@ import ConfigureNotifications from 'web-ext-plugins/manager/config/notifications
 
 
 test('ConfigureNotifications render', () => {
-    const manager = {notifications: {get: jest.fn().mockReturnValue(Promise.resolve([1, 2, 3]))}}
+    const manager = {
+        notifications: {
+            get: jest.fn().mockReturnValue(Promise.resolve([1, 2, 3])),
+            update: jest.fn(() => Promise.resolve([3, 4, 5]))}}
     const config = shallow(<ConfigureNotifications manager={manager} />);
     expect(config.text()).toBe("<TabbedNotifications />");
+    expect(manager.notifications.get.mock.calls).toEqual([[]])
+    const evt = {target: {name: 'foo', checked: false, dataset: {plugin: 'bar', category: 'X'}}}
+    config.instance().updateNotification(evt).then(result => {
+        expect(result).toBe(undefined)
+        expect(manager.notifications.update.mock.calls).toEqual([['foo', 'bar', 'X', false]])
+        expect(manager.notifications.get.mock.calls).toEqual([[], []])
+    })
 })
 
 
