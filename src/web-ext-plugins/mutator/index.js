@@ -26,6 +26,9 @@ export default class Mutator {
     }
 
     mutate(obj) {
+        if (obj === undefined) {
+            return
+        }
         const result = {}
         let type = this.type;
         let objtype = typeof(obj)
