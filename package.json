@@ -31,7 +31,12 @@
     ],
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
+    "coverageReporters": [
+      "text-summary",
+      "lcov"
+    ],
     "collectCoverageFrom": [
+        "**/tests/js/(addon|config|manager|registry|sidebar|validation|mutator)/**/*.js?(x)",
         "**/*.{js,jsx}",
         "!**/*.eslintrc.js",
         "!**/webpack.config.js",
