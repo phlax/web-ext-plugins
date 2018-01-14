@@ -1,0 +1,16 @@
+{
+    "id": "tm-file",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "filename": {
+                "type": "string"
+            },
+            "lastModified": {
+                "type": "integer"
+            }
+        },
+        "required": ["filename"]
+    }
+}
